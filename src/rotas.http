@@ -1,0 +1,10 @@
+//Usando o REST Client para simular as requisições HTTP
+
+POST http://localhost:3000/alunos
+Content-Type: application/json
+
+{
+    "name": "João da Silva",
+    "email": "joao@upf.br",
+    "age": 20
+}
