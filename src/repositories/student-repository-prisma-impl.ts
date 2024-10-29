@@ -3,6 +3,7 @@ import { StudentRepository } from "./student-repository";
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "src/database/prisma.service";
 import { randomUUID } from "crypto";
+import { UpdateStudentDTO } from "src/dtos/update-student-dto";
 
 @Injectable()
 export class StudentRepositoryPrismaImpl implements StudentRepository {
@@ -11,8 +12,8 @@ export class StudentRepositoryPrismaImpl implements StudentRepository {
         private prismaService: PrismaService
     ) { }
 
-    getAllStudents(): Promise<CreateStudentDTO[]> {
-        throw new Error("Method not implemented.");
+    async getAllStudents(): Promise<CreateStudentDTO[]> {
+        return await this.prismaService.students.findMany()
     }
 
     async createStudent(body: CreateStudentDTO): Promise<any> {
@@ -32,12 +33,25 @@ export class StudentRepositoryPrismaImpl implements StudentRepository {
 
     }
 
-    updateStudent(id: string, body: any): Promise<any> {
-        throw new Error("Method not implemented.");
+    async updateStudent(id: string, body: UpdateStudentDTO): Promise<any> {
+        await this.prismaService.students.update({
+            where: {
+                id: id
+            },
+            data: {
+                name: body.name,
+                email: body.email,
+                age: body.age
+            }
+        })
     }
 
-    deleteStudent(id: string): Promise<void> {
-        throw new Error("Method not implemented.");
+    async deleteStudent(id: string): Promise<void> {
+        await this.prismaService.students.delete({
+            where: {
+                id: id
+            }
+        })
     }
 
 }
