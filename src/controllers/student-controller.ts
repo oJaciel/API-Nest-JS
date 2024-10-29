@@ -16,7 +16,7 @@ export class StudentController {
 
     @Post()
     async createStudent(@Body() body:CreateStudentDTO) {
-        this.repository.createStudent(body);
+        return this.repository.createStudent(body);
     }
 
     @Put(':id')
