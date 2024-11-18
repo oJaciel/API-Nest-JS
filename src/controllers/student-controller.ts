@@ -27,7 +27,7 @@ export class StudentController {
 
     @Delete(':id')
     async deleteStudent(@Param('id') id:string) {
-        this.repository.deleteStudent(id);
+        await this.repository.deleteStudent(id);
     }
 
 }
